@@ -48,6 +48,9 @@ return packer.startup(function(use)
 	use({ "numToStr/Comment.nvim" }) -- Comment enhancements
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" }) -- Comment enhancements
 
+	-- Lua Dev
+	use({ "rafcamlet/nvim-luapad" })
+
 	-- NVIM Tree file manager
 	use({
 		"nvim-tree/nvim-tree.lua",
