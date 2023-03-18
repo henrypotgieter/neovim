@@ -10,4 +10,14 @@ local function isroot()
 	return false
 end
 
+local function getusername()
+    local username = io.popen('whoami')
+    if username then
+        local usernamestr = username:read()
+        return usernamestr
+    end
+    return "n/a"
+end
+
 vim.g.isroot = isroot()
+vim.g.username = getusername()
