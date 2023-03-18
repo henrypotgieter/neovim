@@ -10,8 +10,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Move forwards/backwards in searching
-vim.keymap.set("n", "n", "nzzzv", { desc = "Search Next Item"})
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Search Previous Item"})
+vim.keymap.set("n", "n", "nzzzv", { desc = "Search Next Item" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Search Previous Item" })
 
 -- vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -27,7 +27,7 @@ vim.keymap.set("n", "<C-q>", "<cmd>qa<CR>", { desc = "[Q]uit All Buffers" })
 vim.keymap.set("n", "<C-Q>", "<cmd>qa!<CR>", { desc = "[Q]uit All Buffers - Forced" })
 
 -- Write the file
-vim.keymap.set({"n", "i", "v"}, "<C-z>", "<cmd>w<CR>", { desc = "Write Current Buffer" })
+vim.keymap.set({ "n", "i", "v" }, "<C-z>", "<cmd>w<CR>", { desc = "Write Current Buffer" })
 
 vim.keymap.set(
 	"n",
@@ -83,13 +83,16 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Open Nvim Tree
 vim.keymap.set("n", "<leader>tw", ":set wrap!<CR>", { desc = "Toggle Line Wrap" })
 vim.keymap.set("n", "<leader>tp", ":set paste!<CR>", { desc = "Toggle Paste" })
 vim.keymap.set("n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Toggle Spelling" })
-vim.keymap.set("n", "<leader>tl", "<cmd>ToggleDiag<CR>", { desc = 'Toggle LSP Diagnostics' })
+vim.keymap.set("n", "<leader>tl", "<cmd>ToggleDiag<CR>", { desc = "Toggle LSP Diagnostics" })
 vim.keymap.set("n", "<leader>tr", ":set relativenumber!<CR>", { desc = "Toggle Relativenumber" })
 vim.keymap.set("n", "<leader>ti", function()
 	vim.cmd("IndentBlanklineToggle")
 	vim.cmd("set relativenumber!")
 	vim.cmd("set number!")
-	vim.cmd("Gitsigns toggle_signs")
+    -- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
+	if vim.fn.expand("%:t"):len() > 0 then
+		vim.cmd("Gitsigns toggle_signs") 
+	end
 	if vim.o.foldcolumn == "0" then
 		vim.o.foldcolumn = "1"
 		vim.cmd("set scl=yes")
@@ -100,7 +103,7 @@ vim.keymap.set("n", "<leader>ti", function()
 end, { desc = "Toggle lines and indent chars" })
 
 -- Floaterm maps
-vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "Lazy[G]it" , noremap = true, silent = true})
+vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "Lazy[G]it", noremap = true, silent = true })
 
 -- Nerd Comment Keys
 vim.keymap.set("n", "<leader>cc", ':call nerdcommenter#Comment("n", "Comment")<CR>', { desc = "comment" })
