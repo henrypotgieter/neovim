@@ -85,13 +85,14 @@ vim.keymap.set("n", "<leader>tp", ":set paste!<CR>", { desc = "Toggle Paste" })
 vim.keymap.set("n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Toggle Spelling" })
 vim.keymap.set("n", "<leader>tl", "<cmd>ToggleDiag<CR>", { desc = "Toggle LSP Diagnostics" })
 vim.keymap.set("n", "<leader>tr", ":set relativenumber!<CR>", { desc = "Toggle Relativenumber" })
+vim.keymap.set("n", "<leader>tg", ":Gitsigns toggle_signs<CR>", { desc = "Toggle Gitsigns" })
 vim.keymap.set("n", "<leader>ti", function()
 	vim.cmd("IndentBlanklineToggle")
 	vim.cmd("set relativenumber!")
 	vim.cmd("set number!")
-    -- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
+	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
 	if vim.fn.expand("%:t"):len() > 0 then
-		vim.cmd("Gitsigns toggle_signs") 
+		vim.cmd("Gitsigns toggle_signs")
 	end
 	if vim.o.foldcolumn == "0" then
 		vim.o.foldcolumn = "1"
