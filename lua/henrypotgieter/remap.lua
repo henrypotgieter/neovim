@@ -85,11 +85,14 @@ vim.keymap.set("n", "<leader>tp", ":set paste!<CR>", { desc = "Toggle Paste" })
 vim.keymap.set("n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Toggle Spelling" })
 vim.keymap.set("n", "<leader>tl", "<cmd>ToggleDiag<CR>", { desc = "Toggle LSP Diagnostics" })
 vim.keymap.set("n", "<leader>tr", ":set relativenumber!<CR>", { desc = "Toggle Relativenumber" })
+vim.keymap.set("n", "<leader>tn", ":set number!<CR>", { desc = "Toggle Number" })
 vim.keymap.set("n", "<leader>tg", ":Gitsigns toggle_signs<CR>", { desc = "Toggle Gitsigns" })
-vim.keymap.set("n", "<leader>ti", function()
+vim.keymap.set("n", "<leader>tt", ":IndentBlanklineToggle<CR>", { desc = "Toggle Indent Blankline" })
+vim.keymap.set("n", "<leader>ta", function()
 	vim.cmd("IndentBlanklineToggle")
 	vim.cmd("set relativenumber!")
 	vim.cmd("set number!")
+	vim.cmd("ToggleDiag")
 	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
 	if vim.fn.expand("%:t"):len() > 0 then
 		vim.cmd("Gitsigns toggle_signs")
@@ -101,7 +104,15 @@ vim.keymap.set("n", "<leader>ti", function()
 		vim.o.foldcolumn = "0"
 		vim.cmd("set scl=no")
 	end
-end, { desc = "Toggle lines and indent chars" })
+end, { desc = "Toggle all decorations/nums" })
+
+vim.keymap.set("n", "<leader>te", function()
+	if vim.g.toggles_visible then
+		vim.g.toggles_visible = false
+	else
+		vim.g.toggles_visible = true
+	end
+end, { desc = "Toggles visibility" })
 
 -- Floaterm maps
 vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "Lazy[G]it", noremap = true, silent = true })
