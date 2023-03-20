@@ -127,12 +127,14 @@ vim.keymap.set("n", "<leader>pp", function()
 	end
 	local filename = vim.api.nvim_buf_get_name(0)
 	if filename and file_exists(vim.fn.expand("%")) then
-		vim.ui.input({ prompt = " ****** Enter desired file permissions to set: "}, function(input)
-            io.popen('chmod ' .. input .. ' ' .. filename)
-        end)
+		vim.ui.input({ prompt = " ****** Enter desired file permissions to set: " }, function(input)
+			io.popen("chmod " .. input .. " " .. filename)
+		end)
+		print(" ") --[[ Clean the buffer so we don't see the prompt lingering after execution]]
+	else
+		print("Error - No matching file for permission change!")
 	end
-    print(' ')  --[[ Clean the buffer so we don't see the prompt lingering after execution]]
-, { desc = "Change File Permissions" })
+end, { desc = "Change File Permissions" })
 
 -- Floaterm maps
 vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "Lazy[G]it", noremap = true, silent = true })
