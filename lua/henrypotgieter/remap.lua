@@ -87,6 +87,7 @@ vim.keymap.set("n", "<leader>tl", "<cmd>ToggleDiag<CR>", { desc = "Toggle LSP Di
 vim.keymap.set("n", "<leader>tr", ":set relativenumber!<CR>", { desc = "Toggle Relativenumber" })
 vim.keymap.set("n", "<leader>tn", ":set number!<CR>", { desc = "Toggle Number" })
 vim.keymap.set("n", "<leader>tg", ":Gitsigns toggle_signs<CR>", { desc = "Toggle Gitsigns" })
+vim.keymap.set("n", "<leader>th", ":set hls!<CR>", { desc = "Toggle Search Highlighting" })
 vim.keymap.set("n", "<leader>tt", ":IndentBlanklineToggle<CR>", { desc = "Toggle Indent Blankline" })
 vim.keymap.set("n", "<leader>ta", function()
 	vim.cmd("IndentBlanklineToggle")
@@ -137,8 +138,9 @@ vim.keymap.set("n", "<leader>pp", function()
 end, { desc = "Change File Permissions" })
 
 -- Floaterm maps
-vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "LazyGit", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>m", function()
+vim.keymap.set("n", "<leader>og", ":FloatermNew --title=LazyGit lazygit<CR>", { desc = "LazyGit", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>oc", ":FloatermNew --title=Qalc qalc<CR>", { desc = "Qalc", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>om", function()
     -- You need glow for this to work:  https://github.com/charmbracelet/glow
 	local function file_exists(name)
 		local f = io.open(name, "r")
@@ -152,7 +154,7 @@ vim.keymap.set("n", "<leader>m", function()
 	local filename = vim.api.nvim_buf_get_name(0)
     -- Check if the file exists and if it looks like a markdown file
 	if filename:match('.*%.[Mm][Dd]$') and file_exists(vim.fn.expand("%")) then
-        vim.cmd("FloatermNew glow -p " .. filename)
+        vim.cmd("FloatermNew --title=Glow glow -p " .. filename)
 	else
 		print("Error - File not written to disk or doesn't appear to be a .md!")
 	end

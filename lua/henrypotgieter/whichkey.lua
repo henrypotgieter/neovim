@@ -38,4 +38,7 @@ wk.register({
 	["<leader>K"] = {
 		name = "Cheat.sh",
 	},
+	["<leader>o"] = {
+		name = "Open Floaterm",
+	},
 })

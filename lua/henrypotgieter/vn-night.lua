@@ -12,8 +12,7 @@ function ColorThings(color)
 	vim.api.nvim_set_hl(0, "Folded", { fg = "#AFFF70", bg = "#000F5F" })
 	vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "#8FcF60" })
 	vim.api.nvim_set_hl(0, "Comment", { fg = "#3F9F20" })
+	vim.api.nvim_set_hl(0, "FloatermBorder", { fg = "#11FF11" })
 end
 
 ColorThings()
-
--- sdfkj
