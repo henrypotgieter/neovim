@@ -137,7 +137,27 @@ vim.keymap.set("n", "<leader>pp", function()
 end, { desc = "Change File Permissions" })
 
 -- Floaterm maps
-vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "Lazy[G]it", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>g", ":FloatermNew lazygit<CR>", { desc = "LazyGit", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>m", function()
+    -- You need glow for this to work:  https://github.com/charmbracelet/glow
+	local function file_exists(name)
+		local f = io.open(name, "r")
+		if f ~= nil then
+			io.close(f)
+			return true
+		else
+			return false
+		end
+	end
+	local filename = vim.api.nvim_buf_get_name(0)
+    -- Check if the file exists and if it looks like a markdown file
+	if filename:match('.*%.[Mm][Dd]$') and file_exists(vim.fn.expand("%")) then
+        vim.cmd("FloatermNew glow -p " .. filename)
+	else
+		print("Error - File not written to disk or doesn't appear to be a .md!")
+	end
+
+end, { desc = "Glow (Markdown)", noremap = true, silent = true })
 
 -- Nerd Comment Keys
 vim.keymap.set("n", "<leader>cc", ':call nerdcommenter#Comment("n", "Comment")<CR>', { desc = "comment" })
