@@ -42,7 +42,7 @@ end, { desc = "Select within list of options" })
 vim.keymap.set(
 	"n",
 	"<leader><leader>s",
-	"<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>",
+    "<cmd>source ~/.config/nvim/lua/henrypotgieter/luasnip.lua<CR>",
 	{ desc = "Source Luasnip file" }
 )
 
