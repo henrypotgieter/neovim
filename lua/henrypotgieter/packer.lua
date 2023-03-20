@@ -102,6 +102,7 @@ return packer.startup(function(use)
 			ts_update()
 		end,
 	})
+    use({"HiPhish/nvim-ts-rainbow2"})
 
 	-- File jumping within a project
 	use({ "theprimeagen/harpoon" })
