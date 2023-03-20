@@ -6,4 +6,3 @@ end
 require("henrypotgieter.lsp.mason")
 require("henrypotgieter.lsp.handlers").setup()
 require("henrypotgieter.lsp.null-ls")
-
