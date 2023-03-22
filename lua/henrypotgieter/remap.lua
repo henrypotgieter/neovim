@@ -99,6 +99,9 @@ vim.keymap.set("n", "<leader>ta", function()
 	vim.cmd("set relativenumber!")
 	vim.cmd("set number!")
 	vim.cmd("ToggleDiag")
+	vim.diagnostic.config({
+		virtual_text = false,
+	})
 	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
 	if vim.fn.expand("%:t"):len() > 0 then
 		vim.cmd("Gitsigns toggle_signs")
