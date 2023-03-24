@@ -102,6 +102,7 @@ vim.keymap.set("n", "<leader>ta", function()
 	vim.diagnostic.config({
 		virtual_text = false,
 	})
+	vim.cmd("Gitsigns toggle_current_line_blame")
 	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
 	if vim.fn.expand("%:t"):len() > 0 then
 		vim.cmd("Gitsigns toggle_signs")
@@ -137,9 +138,13 @@ vim.keymap.set("n", "<leader>pp", function()
 	local filename = vim.api.nvim_buf_get_name(0)
 	if filename and file_exists(vim.fn.expand("%")) then
 		vim.ui.input({ prompt = " ****** Enter desired file permissions to set: " }, function(input)
-			io.popen("chmod " .. input .. " " .. filename)
+			local result = io.popen("chmod " .. input .. " " .. filename .. " 2>/dev/null || echo fail")
+            if result and result:read() == "fail" then
+                print("Bad input, no permissions change made.")
+            else
+                print(" ") --[> Clean the buffer so we don't see the prompt lingering after execution<]
+            end
 		end)
-		print(" ") --[[ Clean the buffer so we don't see the prompt lingering after execution]]
 	else
 		print("Error - No matching file for permission change!")
 	end
