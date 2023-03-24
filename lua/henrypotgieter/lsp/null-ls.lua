@@ -32,7 +32,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.shfmt,
 		formatting.shellharden,
-		diagnostics.flake8.with({ extra_args = { "--max-line-length=89", "--ignore=E117" } }),
+		diagnostics.flake8.with({ extra_args = { "--max-line-length=89", "--ignore=E117", "--ignore=W503", "--ignore=E501" } }),
 		diagnostics.jsonlint,
 	},
 })
