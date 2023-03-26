@@ -5,6 +5,7 @@ local servers = {
     "jsonls",
     "jedi_language_server",
     "bashls",
+    "clangd",
 }
 
 local settings = {

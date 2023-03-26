@@ -163,3 +163,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require("lspconfig")["jsonls"].setup({
 	capabilities = capabilities,
 })
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+require("lspconfig")["pyright"].setup({
+	capabilities = capabilities,
+})
