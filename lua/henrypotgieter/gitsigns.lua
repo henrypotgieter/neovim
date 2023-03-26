@@ -75,7 +75,8 @@ require("gitsigns").setup({
 		map("n", "<leader>hS", gs.stage_buffer, { desc = "Gitsigns stage buffer" })
 		map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Gitsigns undo stage hunk" })
 		map("n", "<leader>hR", gs.reset_buffer, { desc = "Gitsigns reset buffer" })
-		map("n", "<leader>hp", gs.preview_hunk, { desc = "Gitsigns preview hunk" })
+		map("n", "<leader>hp", gs.prev_hunk, { desc = "Gitsigns previous hunk" })
+		map("n", "<leader>hn", gs.next_hunk, { desc = "Gitsigns next hunk" })
 		map("n", "<leader>hb", function()
 			gs.blame_line({ full = true })
 		end, { desc = "Gitsigns blame" })
@@ -83,7 +84,7 @@ require("gitsigns").setup({
 		map("n", "<leader>hd", gs.diffthis, { desc = "Gitsigns diff" })
 		map("n", "<leader>hD", function()
 			gs.diffthis("~")
-		end)
+		end, { desc = "Gitsigns diffthis ~"})
 		map("n", "<leader>td", gs.toggle_deleted, { desc = "Gitsigns toggled deleted" })
 
 		-- Text object
