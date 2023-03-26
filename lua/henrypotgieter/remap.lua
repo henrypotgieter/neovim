@@ -101,6 +101,7 @@ vim.keymap.set("n", "<leader>ta", function()
 	vim.cmd("ToggleDiag")
 	vim.diagnostic.config({
 		virtual_text = false,
+        float = false,
 	})
 	vim.cmd("Gitsigns toggle_current_line_blame")
 	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
