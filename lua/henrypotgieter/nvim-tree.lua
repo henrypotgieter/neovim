@@ -55,7 +55,9 @@ nvim_tree.setup({
 		},
 	},
 	view = {
-		width = 30,
+		width = 35,
+        number = true,
+        relativenumber = true,
 		side = "left",
 		mappings = {
 			list = {
