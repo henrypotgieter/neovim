@@ -39,18 +39,8 @@ k.set(
 )
 k.set("n", "<leader>x", "<cmd>!chmod +x %<CR><CR>", { silent = true, desc = "Make file Executable" })
 
-k.set(
-	"n",
-	"<leader>po",
-	"<cmd>e ~/.config/nvim/lua/henrypotgieter/packer.lua<CR>",
-	{ desc = "Open packer config" }
-)
-k.set(
-	"n",
-	"<leader>pm",
-	"<cmd>e ~/.config/nvim/lua/henrypotgieter/keymap.lua<CR>",
-	{ desc = "Open keymap config" }
-)
+k.set("n", "<leader>po", "<cmd>e ~/.config/nvim/lua/henrypotgieter/packer.lua<CR>", { desc = "Open packer config" })
+k.set("n", "<leader>pm", "<cmd>e ~/.config/nvim/lua/henrypotgieter/keymap.lua<CR>", { desc = "Open keymap config" })
 k.set("n", "<leader>pu", "<cmd>PackerSync<CR>", { desc = "Packer Update (Sync)" })
 k.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open File List" })
 
@@ -103,7 +93,7 @@ k.set("n", "<leader>ta", function()
 	vim.cmd("ToggleDiag")
 	vim.diagnostic.config({
 		virtual_text = false,
-        float = false,
+		float = false,
 	})
 	vim.cmd("Gitsigns toggle_current_line_blame")
 	-- Only toggle gitsigns if we appear to be looking at a file (otherwise errors ensue)
@@ -142,11 +132,11 @@ k.set("n", "<leader>pp", function()
 	if filename and file_exists(vim.fn.expand("%")) then
 		vim.ui.input({ prompt = " ****** Enter desired file permissions to set: " }, function(input)
 			local result = io.popen("chmod " .. input .. " " .. filename .. " 2>/dev/null || echo fail")
-            if result and result:read() == "fail" then
-                print("Bad input, no permissions change made.")
-            else
-                print(" ") --[> Clean the buffer so we don't see the prompt lingering after execution<]
-            end
+			if result and result:read() == "fail" then
+				print("Bad input, no permissions change made.")
+			else
+				print(" ") --[> Clean the buffer so we don't see the prompt lingering after execution<]
+			end
 		end)
 	else
 		print("Error - No matching file for permission change!")
@@ -160,12 +150,7 @@ k.set(
 	":FloatermNew --title=LazyGit lazygit<CR>",
 	{ desc = "LazyGit", noremap = true, silent = true }
 )
-k.set(
-	"n",
-	"<leader>oc",
-	":FloatermNew --title=Qalc qalc<CR>",
-	{ desc = "Qalc", noremap = true, silent = true }
-)
+k.set("n", "<leader>oc", ":FloatermNew --title=Qalc qalc<CR>", { desc = "Qalc", noremap = true, silent = true })
 k.set("n", "<leader>om", function()
 	-- You need glow for this to work:  https://github.com/charmbracelet/glow
 	local function file_exists(name)
@@ -185,6 +170,8 @@ k.set("n", "<leader>om", function()
 		print("Error - File not written to disk or doesn't appear to be a .md!")
 	end
 end, { desc = "Glow (Markdown)", noremap = true, silent = true })
+
+k.set("n", "<leader>d", ":%s/ *$//<CR>", { desc = "Delete trailing spaces" })
 
 -- Nerd Comment Keys
 k.set("n", "<leader>cc", ':call nerdcommenter#Comment("n", "Comment")<CR>', { desc = "comment" })
