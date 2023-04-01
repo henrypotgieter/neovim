@@ -45,6 +45,11 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
+vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''}) 
+vim.fn.sign_define('DapBreakpointCondition', {text='💬', texthl='', linehl='', numhl=''}) 
+vim.fn.sign_define('DapStopped', {text='👺', texthl='', linehl='', numhl=''}) 
+vim.fn.sign_define('DapLogPoint', {text='🪵', texthl='', linehl='', numhl=''}) 
+vim.fn.sign_define('DapBreakpointRejected', {text='😠', texthl='', linehl='', numhl=''}) 
 
 require("nvim-dap-virtual-text").setup()
 dapui.setup({
