@@ -102,7 +102,7 @@ return packer.startup(function(use)
 			ts_update()
 		end,
 	})
-    use({"HiPhish/nvim-ts-rainbow2"})
+	use({ "HiPhish/nvim-ts-rainbow2" })
 
 	-- File jumping within a project
 	use({ "theprimeagen/harpoon" })
@@ -121,6 +121,14 @@ return packer.startup(function(use)
 
 	-- Indent markers
 	use({ "lukas-reineke/indent-blankline.nvim" })
+
+	-- Debugging
+	use({ "mfussenegger/nvim-dap" })
+	use({ "mfussenegger/nvim-dap-python" })
+	use({ "leoluz/nvim-dap-go" })
+	use({ "rcarriga/nvim-dap-ui" })
+	use({ "theHamsta/nvim-dap-virtual-text" })
+	use({ "nvim-telescope/telescope-dap.nvim" })
 
 	-- Git
 	use({ "lewis6991/gitsigns.nvim" })

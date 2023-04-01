@@ -23,6 +23,9 @@ wk.register({
 		o = { "[P]acker [O]pen Config" },
 		b = { "Print Buffers" },
 	},
+	["<leader>d"] = {
+		name = "Debug",
+	},
 	["<leader>l"] = {
 		name = "LSP",
 	},
