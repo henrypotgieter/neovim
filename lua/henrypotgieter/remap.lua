@@ -33,9 +33,9 @@ k.set({ "n", "i", "v" }, "<C-z>", "<cmd>w<CR>", { desc = "Write Current Buffer" 
 
 k.set(
 	"n",
-	"<leader>s",
+	"<leader>r",
 	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-	{ desc = "[S]earch and replace in file" }
+	{ desc = "Search and Replace in file" }
 )
 k.set("n", "<leader>x", "<cmd>!chmod +x %<CR><CR>", { silent = true, desc = "Make file Executable" })
 
@@ -171,7 +171,7 @@ k.set("n", "<leader>om", function()
 	end
 end, { desc = "Glow (Markdown)", noremap = true, silent = true })
 
-k.set("n", "<leader>d", ":%s/ *$//<CR>", { desc = "Delete trailing spaces" })
+k.set("n", "<leader>s", ":%s/ *$//<CR>", { desc = "Delete trailing spaces" })
 
 -- Nerd Comment Keys
 k.set("n", "<leader>cc", ':call nerdcommenter#Comment("n", "Comment")<CR>', { desc = "comment" })
