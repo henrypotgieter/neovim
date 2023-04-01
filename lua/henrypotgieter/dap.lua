@@ -1,41 +1,6 @@
-require("dap-python").setup("~/.virtualenvs/debugpy/bin/python")
-
---[[
-   [local dap = require("dap")
-   [dap.adapters.python = {
-   [    type = "executable",
-   [    command = "~/.virtualenvs/debugpy/bin/python",
-   [    args = { "-m", "debugpy.adapter" },
-   [}
-   [dap.configurations.python = {
-   [    {
-   [        -- The first three options are required by nvim-dap
-   [        type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
-   [        request = "launch",
-   [        name = "Launch file",
-   [
-   [        -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-   [
-   [        program = "${file}", -- This configuration will launch the current file if used.
-   [        pythonPath = function()
-   [            -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-   [            -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-   [            -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-   [            local cwd = vim.fn.getcwd()
-   [            if vim.fn.executable(cwd .. "/venv/bin/python") == 1 then
-   [                return cwd .. "/venv/bin/python"
-   [            elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
-   [                return cwd .. "/.venv/bin/python"
-   [            else
-   [                return "/usr/bin/python"
-   [            end
-   [        end,
-   [    },
-   [}
-   ]]
-
 local dap, dapui = require("dap"), require("dapui")
 
+-- Trigger dapui to open/close dynamically
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
 end
@@ -45,13 +10,18 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
 	dapui.close()
 end
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''}) 
-vim.fn.sign_define('DapBreakpointCondition', {text='💬', texthl='', linehl='', numhl=''}) 
-vim.fn.sign_define('DapStopped', {text='👺', texthl='', linehl='', numhl=''}) 
-vim.fn.sign_define('DapLogPoint', {text='🪵', texthl='', linehl='', numhl=''}) 
-vim.fn.sign_define('DapBreakpointRejected', {text='😠', texthl='', linehl='', numhl=''}) 
 
+-- Set some custom icons
+vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpointCondition", { text = "💬", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapStopped", { text = "👺", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapLogPoint", { text = "🪵", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpointRejected", { text = "😠", texthl = "", linehl = "", numhl = "" })
+
+-- Enable virtual text
 require("nvim-dap-virtual-text").setup()
+
+-- More DAPUI setup options
 dapui.setup({
 	icons = {
 		expanded = "⯆",
@@ -127,8 +97,8 @@ dapui.setup({
 	},
 })
 
+-- Keymaps!
 vim.keymap.set("n", "<F5>", function()
-	--require("dapui").open()
 	require("dap").continue()
 end, { desc = "DAP Continue" })
 vim.keymap.set("n", "<F6>", function()
@@ -140,11 +110,16 @@ end, { desc = "DAP Step Into" })
 vim.keymap.set("n", "<F8>", function()
 	require("dap").step_out()
 end, { desc = "DAP Step Out" })
+vim.keymap.set("n", "<F10>", function()
+	require("dap").disconnect()
+	require("dap").close()
+	require("dapui").close()
+end, { desc = "DAP Disconnect/Close" })
 vim.keymap.set("n", "<Leader>db", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "DAP Toggle Breakpoint" })
 vim.keymap.set("n", "<Leader>dB", function()
-	require("dap").set_breakpoint(vim.fn.input('Breadpoint condition: '))
+	require("dap").set_breakpoint(vim.fn.input("Breadpoint condition: "))
 end, { desc = "DAP Set Breakpoint Condition" })
 vim.keymap.set("n", "<Leader>dp", function()
 	require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
@@ -176,8 +151,66 @@ vim.keymap.set("n", "<Leader>dc", function()
 	require("dap-python").test_class()
 end, { desc = "DAP Test Class" })
 
---[[
-   [nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
-   [nnoremap <silent> <leader>df :lua require('dap-python').test_class()<CR>
-   [vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
-   ]]
+-- Go debugging adapter:
+
+dap.adapters.delve = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = "dlv",
+		args = { "dap", "-l", "127.0.0.1:${port}" },
+	},
+}
+
+-- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+dap.configurations.go = {
+	{
+		type = "delve",
+		name = "Debug",
+		request = "launch",
+		program = "${file}",
+	},
+	{
+		type = "delve",
+		name = "Debug test", -- configuration for debugging test files
+		request = "launch",
+		mode = "test",
+		program = "${file}",
+	},
+	-- works with go.mod packages and sub packages
+	{
+		type = "delve",
+		name = "Debug test (go.mod)",
+		request = "launch",
+		mode = "test",
+		program = "./${relativeFileDirname}",
+	},
+}
+
+-- Bash debug adapator (mason)
+dap.adapters.bashdb = {
+	type = "executable",
+	command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
+	name = "bashdb",
+}
+dap.configurations.sh = {
+	{
+		type = "bashdb",
+		request = "launch",
+		name = "Launch file",
+		showDebugOutput = true,
+		pathBashdb = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb",
+		pathBashdbLib = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir",
+		trace = true,
+		file = "${file}",
+		program = "${file}",
+		cwd = "${workspaceFolder}",
+		pathCat = "cat",
+		pathBash = "/bin/bash",
+		pathMkfifo = "mkfifo",
+		pathPkill = "pkill",
+		args = {},
+		env = {},
+		terminalKind = "integrated",
+	},
+}
