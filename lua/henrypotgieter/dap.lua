@@ -101,56 +101,74 @@ dapui.setup({
 vim.keymap.set("n", "<F5>", function()
 	require("dap").continue()
 end, { desc = "DAP Continue" })
+
 vim.keymap.set("n", "<F6>", function()
 	require("dap").step_over()
 end, { desc = "DAP Step Over" })
+
 vim.keymap.set("n", "<F7>", function()
 	require("dap").step_into()
 end, { desc = "DAP Step Into" })
+
 vim.keymap.set("n", "<F8>", function()
 	require("dap").step_out()
 end, { desc = "DAP Step Out" })
+
 vim.keymap.set("n", "<F10>", function()
 	require("dap").disconnect()
 	require("dap").close()
 	require("dapui").close()
 end, { desc = "DAP Disconnect/Close" })
+
 vim.keymap.set("n", "<Leader>db", function()
 	require("dap").toggle_breakpoint()
 end, { desc = "DAP Toggle Breakpoint" })
+
 vim.keymap.set("n", "<Leader>dB", function()
 	require("dap").set_breakpoint(vim.fn.input("Breadpoint condition: "))
 end, { desc = "DAP Set Breakpoint Condition" })
+
 vim.keymap.set("n", "<Leader>dp", function()
 	require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 end, { desc = "DAP Set Breapoint" })
+
 vim.keymap.set("n", "<Leader>dr", function()
 	require("dap").repl.open()
 end, { desc = "DAP Repl Open" })
+
 vim.keymap.set("n", "<Leader>dl", function()
 	require("dap").run_last()
 end, { desc = "DAP RUN Last" })
+
 vim.keymap.set({ "n", "v" }, "<Leader>dh", function()
 	require("dap.ui.widgets").hover()
 end, { desc = "DAP UI Hover" })
+
 vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
 	require("dap.ui.widgets").preview()
 end, { desc = "DAP UI Preview" })
+
 vim.keymap.set("n", "<Leader>df", function()
 	local widgets = require("dap.ui.widgets")
 	widgets.centered_float(widgets.frames)
 end, { desc = "DAP Frames" })
+
 vim.keymap.set("n", "<Leader>ds", function()
 	local widgets = require("dap.ui.widgets")
 	widgets.centered_float(widgets.scopes)
 end, { desc = "DAP Scopes" })
+
 vim.keymap.set("n", "<Leader>dm", function()
 	require("dap-python").test_method()
 end, { desc = "DAP Test Method" })
+
 vim.keymap.set("n", "<Leader>dc", function()
 	require("dap-python").test_class()
 end, { desc = "DAP Test Class" })
 
+vim.keymap.set("v", "<Leader>ds", function()
+	require("dap-python").debug_selection()
+end, { desc = "DAP Debug Selection" })
 -- Go debugging adapter:
 
 dap.adapters.delve = {
