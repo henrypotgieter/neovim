@@ -65,9 +65,6 @@ k.set("v", ">", ">gv", { desc = "Shit visual block left" })
 -- Sort and Unique
 k.set("n", "<C-s>", "<cmd>%sort u<CR>", { desc = "Sort and Unique the buffer" })
 
---- GIT fugitive
--- k.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git" })
-
 -- NVIM Tree
 k.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Open Nvim Tree" })
 
@@ -151,6 +148,7 @@ k.set(
 	{ desc = "LazyGit", noremap = true, silent = true }
 )
 k.set("n", "<leader>oc", ":FloatermNew --title=Qalc qalc<CR>", { desc = "Qalc", noremap = true, silent = true })
+k.set("n", "<leader>os", ":FloatermNew --title=Shell bash<CR>", { desc = "Shell", noremap = true, silent = true })
 k.set("n", "<leader>om", function()
 	-- You need glow for this to work:  https://github.com/charmbracelet/glow
 	local function file_exists(name)
@@ -202,3 +200,12 @@ k.set("x", "<leader>ca", ':call nerdcommenter#Comment("x","AltDelims")<CR>', { d
 k.set("x", "<leader>cu", ':call nerdcommenter#Comment("x","Uncomment")<CR>', { desc = "uncomment" })
 k.set("x", "<leader>c$", ':call nerdcommenter#Comment("x","ToEOL")<CR>', { desc = "comment to eol" })
 k.set("x", "<leader>c<space>", ':call nerdcommenter#Comment("x","Toggle")<CR>', { desc = "comment toggle" })
+
+
+
+--- GIT fugitive
+k.set("n", "<leader>gs", vim.cmd.Git, { desc = "Git Status" })
+k.set("n", "<leader>gd", ':Gvdiffsplit!<CR>', { desc = "Git vDiff Split" })
+k.set("n", "<leader>gh", ':diffget //2<CR>', { desc = "Fetch Target Hunk (left)" })
+k.set("n", "<leader>gl", ':diffget //3<CR>', { desc = "Fetch Merge Hunk (right)" })
+

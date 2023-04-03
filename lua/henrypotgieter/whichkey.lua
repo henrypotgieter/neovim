@@ -44,4 +44,10 @@ wk.register({
 	["<leader>o"] = {
 		name = "Open Floaterm",
 	},
+	["<leader>g"] = {
+		name = "Git",
+	},
+    ["cz"] = {
+        name = "Git Stash",
+    }
 })
