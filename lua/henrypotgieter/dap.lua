@@ -1,5 +1,6 @@
 local dap, dapui = require("dap"), require("dapui")
 
+
 -- Trigger dapui to open/close dynamically
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
@@ -170,6 +171,13 @@ vim.keymap.set("v", "<Leader>ds", function()
 	require("dap-python").debug_selection()
 end, { desc = "DAP Debug Selection" })
 -- Go debugging adapter:
+
+require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+-- Setup VirtualENV:
+-- mkdir ~/.virtualenvs
+-- cd ~/.virtualenvs
+-- python -m venv debugpy
+-- debugpy/bin/python -m pip install debugpy
 
 dap.adapters.delve = {
 	type = "server",
